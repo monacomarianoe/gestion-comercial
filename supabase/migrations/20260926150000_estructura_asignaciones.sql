@@ -259,10 +259,25 @@ END;
 $$;
 
 CREATE TRIGGER user_assignments_guard_history
-BEFORE UPDATE
+CREATE OR REPLACE FUNCTION public.prevent_assignment_delete()
+RETURNS trigger
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+BEGIN
+  RAISE EXCEPTION
+    'Las asignaciones no se eliminan; deben cerrarse mediante hasta'
+    USING ERRCODE = 'P0001';
+END;
+$$;
+
+CREATE TRIGGER user_assignments_prevent_delete
+BEFORE DELETE
 ON public.user_assignments
 FOR EACH ROW
-EXECUTE FUNCTION public.guard_assignment_history();
+EXECUTE FUNCTION public.prevent_assignment_delete();
+
 -- =========================================================
 -- SEGURIDAD / RLS
 -- =========================================================
