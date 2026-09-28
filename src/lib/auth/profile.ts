@@ -1,6 +1,8 @@
 import { isAppRole } from "@/lib/auth/roles";
 import { createClient } from "@/lib/supabase/server";
-import type { Profile } from "@/types/database";
+import type { Database } from "@/types/database";
+
+type Profile = Database["public"]["Tables"]["profiles"]["Row"];
 
 export type SessionProfile = {
   userId: string | null;

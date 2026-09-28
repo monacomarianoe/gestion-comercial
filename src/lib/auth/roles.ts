@@ -1,6 +1,17 @@
-import { APP_ROLES, type AppRole } from "@/types/database";
+import type { Database } from "@/types/database";
 
-export { APP_ROLES, type AppRole };
+export type AppRole =
+  Database["public"]["Enums"]["app_role"];
+
+export const APP_ROLES: AppRole[] = [
+  "ADMIN",
+  "COMERCIAL",
+  "SUPERVISOR",
+  "VENDEDOR",
+  "MONITOR",
+  "REPARTIDOR",
+  "DEPOSITO",
+];
 
 export const ROLE_LABELS: Record<AppRole, string> = {
   ADMIN: "Administrador",
@@ -12,6 +23,9 @@ export const ROLE_LABELS: Record<AppRole, string> = {
   DEPOSITO: "Depósito",
 };
 
-export function isAppRole(value: string): value is AppRole {
-  return (APP_ROLES as readonly string[]).includes(value);
+export function isAppRole(value: unknown): value is AppRole {
+  return (
+    typeof value === "string" &&
+    APP_ROLES.includes(value as AppRole)
+  );
 }

@@ -26,7 +26,7 @@ export default async function HomePage() {
         <div>
           <dt className="text-zinc-500">Rol</dt>
           <dd className="font-medium">
-            {ROLE_LABELS[profile.rol]} ({profile.rol})
+          {ROLE_LABELS[profile.rol as keyof typeof ROLE_LABELS]} ({profile.rol})
           </dd>
         </div>
         <div>
