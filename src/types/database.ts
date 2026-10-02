@@ -533,6 +533,289 @@ export type Database = {
           },
         ]
       }
+      seller_daily_routes: {
+        Row: {
+          creado_por: string
+          created_at: string
+          fecha: string
+          id: number
+          seller_id: string
+          zone_id: number
+        }
+        Insert: {
+          creado_por: string
+          created_at?: string
+          fecha: string
+          id?: never
+          seller_id: string
+          zone_id: number
+        }
+        Update: {
+          creado_por?: string
+          created_at?: string
+          fecha?: string
+          id?: never
+          seller_id?: string
+          zone_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "seller_daily_routes_creado_por_fkey"
+            columns: ["creado_por"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "seller_daily_routes_seller_id_fkey"
+            columns: ["seller_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "seller_daily_routes_zone_id_fkey"
+            columns: ["zone_id"]
+            isOneToOne: false
+            referencedRelation: "zones"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      supervisor_visits: {
+        Row: {
+          cerrado_at: string | null
+          client_id: number
+          creado_por: string
+          created_at: string
+          detalle_cierre: string | null
+          estado: Database["public"]["Enums"]["supervisor_visit_status"]
+          fecha_programada: string
+          hora_programada: string | null
+          id: number
+          iniciado_at: string | null
+          objetivo: string
+          order_id: number | null
+          origen: Database["public"]["Enums"]["supervisor_visit_origin"]
+          parent_visit_id: number | null
+          proxima_accion: string | null
+          proxima_fecha: string | null
+          requiere_incidencia_comercial: boolean
+          resultado:
+            | Database["public"]["Enums"]["supervisor_visit_result"]
+            | null
+          supervisor_id: string
+          updated_at: string
+        }
+        Insert: {
+          cerrado_at?: string | null
+          client_id: number
+          creado_por: string
+          created_at?: string
+          detalle_cierre?: string | null
+          estado?: Database["public"]["Enums"]["supervisor_visit_status"]
+          fecha_programada: string
+          hora_programada?: string | null
+          id?: never
+          iniciado_at?: string | null
+          objetivo: string
+          order_id?: number | null
+          origen: Database["public"]["Enums"]["supervisor_visit_origin"]
+          parent_visit_id?: number | null
+          proxima_accion?: string | null
+          proxima_fecha?: string | null
+          requiere_incidencia_comercial?: boolean
+          resultado?:
+            | Database["public"]["Enums"]["supervisor_visit_result"]
+            | null
+          supervisor_id: string
+          updated_at?: string
+        }
+        Update: {
+          cerrado_at?: string | null
+          client_id?: number
+          creado_por?: string
+          created_at?: string
+          detalle_cierre?: string | null
+          estado?: Database["public"]["Enums"]["supervisor_visit_status"]
+          fecha_programada?: string
+          hora_programada?: string | null
+          id?: never
+          iniciado_at?: string | null
+          objetivo?: string
+          order_id?: number | null
+          origen?: Database["public"]["Enums"]["supervisor_visit_origin"]
+          parent_visit_id?: number | null
+          proxima_accion?: string | null
+          proxima_fecha?: string | null
+          requiere_incidencia_comercial?: boolean
+          resultado?:
+            | Database["public"]["Enums"]["supervisor_visit_result"]
+            | null
+          supervisor_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "supervisor_visits_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "supervisor_visits_creado_por_fkey"
+            columns: ["creado_por"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "supervisor_visits_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "supervisor_visits_parent_visit_id_fkey"
+            columns: ["parent_visit_id"]
+            isOneToOne: false
+            referencedRelation: "supervisor_visits"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "supervisor_visits_supervisor_id_fkey"
+            columns: ["supervisor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      supervisor_workday_criticalities: {
+        Row: {
+          criticidad: Database["public"]["Enums"]["client_criticality"]
+          workday_id: number
+        }
+        Insert: {
+          criticidad: Database["public"]["Enums"]["client_criticality"]
+          workday_id: number
+        }
+        Update: {
+          criticidad?: Database["public"]["Enums"]["client_criticality"]
+          workday_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "supervisor_workday_criticalities_workday_id_fkey"
+            columns: ["workday_id"]
+            isOneToOne: false
+            referencedRelation: "supervisor_workdays"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      supervisor_workday_zones: {
+        Row: {
+          workday_id: number
+          zone_id: number
+        }
+        Insert: {
+          workday_id: number
+          zone_id: number
+        }
+        Update: {
+          workday_id?: number
+          zone_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "supervisor_workday_zones_workday_id_fkey"
+            columns: ["workday_id"]
+            isOneToOne: false
+            referencedRelation: "supervisor_workdays"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "supervisor_workday_zones_zone_id_fkey"
+            columns: ["zone_id"]
+            isOneToOne: false
+            referencedRelation: "zones"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      supervisor_workdays: {
+        Row: {
+          accompanied_seller_id: string | null
+          cierre_lat: number | null
+          cierre_lng: number | null
+          cierre_ruta_at: string | null
+          creado_por: string
+          created_at: string
+          fecha: string
+          id: number
+          inicio_lat: number | null
+          inicio_lng: number | null
+          inicio_ruta_at: string | null
+          modo: Database["public"]["Enums"]["supervisor_work_mode"]
+          supervisor_id: string
+        }
+        Insert: {
+          accompanied_seller_id?: string | null
+          cierre_lat?: number | null
+          cierre_lng?: number | null
+          cierre_ruta_at?: string | null
+          creado_por: string
+          created_at?: string
+          fecha: string
+          id?: never
+          inicio_lat?: number | null
+          inicio_lng?: number | null
+          inicio_ruta_at?: string | null
+          modo: Database["public"]["Enums"]["supervisor_work_mode"]
+          supervisor_id: string
+        }
+        Update: {
+          accompanied_seller_id?: string | null
+          cierre_lat?: number | null
+          cierre_lng?: number | null
+          cierre_ruta_at?: string | null
+          creado_por?: string
+          created_at?: string
+          fecha?: string
+          id?: never
+          inicio_lat?: number | null
+          inicio_lng?: number | null
+          inicio_ruta_at?: string | null
+          modo?: Database["public"]["Enums"]["supervisor_work_mode"]
+          supervisor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "supervisor_workdays_accompanied_seller_id_fkey"
+            columns: ["accompanied_seller_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "supervisor_workdays_creado_por_fkey"
+            columns: ["creado_por"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "supervisor_workdays_supervisor_id_fkey"
+            columns: ["supervisor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_assignments: {
         Row: {
           creado_por: string
@@ -620,6 +903,43 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      can_view_profile_in_structure: {
+        Args: { p_fecha?: string; p_profile_id: string; p_viewer_id: string }
+        Returns: boolean
+      }
+      client_current_criticality: {
+        Args: { p_client_id: number; p_fecha?: string }
+        Returns: Database["public"]["Enums"]["client_criticality"]
+      }
+      client_days_without_purchase: {
+        Args: { p_client_id: number; p_fecha?: string }
+        Returns: number
+      }
+      client_last_purchase: { Args: { p_client_id: number }; Returns: string }
+      close_supervisor_route: {
+        Args: { p_lat?: number; p_lng?: number; p_workday_id: number }
+        Returns: {
+          accompanied_seller_id: string | null
+          cierre_lat: number | null
+          cierre_lng: number | null
+          cierre_ruta_at: string | null
+          creado_por: string
+          created_at: string
+          fecha: string
+          id: number
+          inicio_lat: number | null
+          inicio_lng: number | null
+          inicio_ruta_at: string | null
+          modo: Database["public"]["Enums"]["supervisor_work_mode"]
+          supervisor_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "supervisor_workdays"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       effective_assignment: {
         Args: { p_fecha?: string; p_subordinado_id: string }
         Returns: {
@@ -633,6 +953,58 @@ export type Database = {
       }
       is_active_user: { Args: never; Returns: boolean }
       is_admin: { Args: never; Returns: boolean }
+      is_effective_commercial_of_seller: {
+        Args: { p_commercial_id: string; p_fecha?: string; p_seller_id: string }
+        Returns: boolean
+      }
+      is_effective_commercial_of_supervisor: {
+        Args: {
+          p_commercial_id: string
+          p_fecha?: string
+          p_supervisor_id: string
+        }
+        Returns: boolean
+      }
+      is_effective_supervisor_of_seller: {
+        Args: { p_fecha?: string; p_seller_id: string; p_supervisor_id: string }
+        Returns: boolean
+      }
+      start_supervisor_route: {
+        Args: { p_lat?: number; p_lng?: number; p_workday_id: number }
+        Returns: {
+          accompanied_seller_id: string | null
+          cierre_lat: number | null
+          cierre_lng: number | null
+          cierre_ruta_at: string | null
+          creado_por: string
+          created_at: string
+          fecha: string
+          id: number
+          inicio_lat: number | null
+          inicio_lng: number | null
+          inicio_ruta_at: string | null
+          modo: Database["public"]["Enums"]["supervisor_work_mode"]
+          supervisor_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "supervisor_workdays"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      supervisor_critical_clients: {
+        Args: { p_fecha?: string; p_supervisor_id: string }
+        Returns: {
+          client_id: number
+          cod: string
+          criticidad: Database["public"]["Enums"]["client_criticality"]
+          dias_sin_compra: number
+          fecha_ultima_compra: string
+          nombre: string
+          zone_id: number
+        }[]
+      }
     }
     Enums: {
       app_role:
@@ -644,6 +1016,7 @@ export type Database = {
         | "REPARTIDOR"
         | "DEPOSITO"
       assignment_type: "PERMANENTE" | "TEMPORAL"
+      client_criticality: "PRIORIDAD" | "URGENCIA" | "ACCION" | "SIN_COMPRA"
       client_status: "ACTIVO" | "BAJA"
       order_status:
         | "BORRADOR"
@@ -657,6 +1030,19 @@ export type Database = {
         | "PRECIO_ESPECIAL"
         | "DESCUENTO_PORCENTAJE"
         | "BONIFICACION"
+      supervisor_visit_origin:
+        | "COMERCIAL"
+        | "SUPERVISOR"
+        | "REPROGRAMACION"
+        | "SEGUIMIENTO"
+      supervisor_visit_result:
+        | "VENTA"
+        | "RESUELTO"
+        | "REPROGRAMADO"
+        | "SEGUIMIENTO"
+        | "DERIVADO_COMERCIAL"
+      supervisor_visit_status: "PENDIENTE" | "EN_CURSO" | "CERRADA"
+      supervisor_work_mode: "EN_COMPANIA" | "MODO_SUPERVISION"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -794,6 +1180,7 @@ export const Constants = {
         "DEPOSITO",
       ],
       assignment_type: ["PERMANENTE", "TEMPORAL"],
+      client_criticality: ["PRIORIDAD", "URGENCIA", "ACCION", "SIN_COMPRA"],
       client_status: ["ACTIVO", "BAJA"],
       order_status: [
         "BORRADOR",
@@ -809,6 +1196,21 @@ export const Constants = {
         "DESCUENTO_PORCENTAJE",
         "BONIFICACION",
       ],
+      supervisor_visit_origin: [
+        "COMERCIAL",
+        "SUPERVISOR",
+        "REPROGRAMACION",
+        "SEGUIMIENTO",
+      ],
+      supervisor_visit_result: [
+        "VENTA",
+        "RESUELTO",
+        "REPROGRAMADO",
+        "SEGUIMIENTO",
+        "DERIVADO_COMERCIAL",
+      ],
+      supervisor_visit_status: ["PENDIENTE", "EN_CURSO", "CERRADA"],
+      supervisor_work_mode: ["EN_COMPANIA", "MODO_SUPERVISION"],
     },
   },
 } as const
