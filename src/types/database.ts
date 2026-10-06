@@ -1,4 +1,4 @@
-﻿export type Json =
+export type Json =
   | string
   | number
   | boolean
@@ -88,6 +88,297 @@ export type Database = {
             columns: ["zone_id"]
             isOneToOne: false
             referencedRelation: "zones"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      delivery_sheet_orders: {
+        Row: {
+          activo: boolean
+          created_at: string
+          delivery_sheet_id: number
+          id: number
+          incident_id: number | null
+          motivo_retiro: string | null
+          numero_remito: string
+          orden_ruta: number
+          order_id: number
+          retirado_at: string | null
+          retirado_por: string | null
+        }
+        Insert: {
+          activo?: boolean
+          created_at?: string
+          delivery_sheet_id: number
+          id?: never
+          incident_id?: number | null
+          motivo_retiro?: string | null
+          numero_remito: string
+          orden_ruta: number
+          order_id: number
+          retirado_at?: string | null
+          retirado_por?: string | null
+        }
+        Update: {
+          activo?: boolean
+          created_at?: string
+          delivery_sheet_id?: number
+          id?: never
+          incident_id?: number | null
+          motivo_retiro?: string | null
+          numero_remito?: string
+          orden_ruta?: number
+          order_id?: number
+          retirado_at?: string | null
+          retirado_por?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "delivery_sheet_orders_delivery_sheet_id_fkey"
+            columns: ["delivery_sheet_id"]
+            isOneToOne: false
+            referencedRelation: "delivery_sheets"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "delivery_sheet_orders_incident_id_fkey"
+            columns: ["incident_id"]
+            isOneToOne: false
+            referencedRelation: "incidents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "delivery_sheet_orders_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "delivery_sheet_orders_retirado_por_fkey"
+            columns: ["retirado_por"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      delivery_sheets: {
+        Row: {
+          armada_at: string | null
+          asignada_at: string | null
+          cerrada_at: string | null
+          created_at: string
+          estado: Database["public"]["Enums"]["delivery_sheet_status"]
+          fecha: string
+          id: number
+          inicio_reparto_at: string | null
+          monitor_id: string
+          numero_salida: number
+          observaciones: string | null
+          repartidor_id: string | null
+          updated_at: string
+          vehicle_id: number | null
+        }
+        Insert: {
+          armada_at?: string | null
+          asignada_at?: string | null
+          cerrada_at?: string | null
+          created_at?: string
+          estado?: Database["public"]["Enums"]["delivery_sheet_status"]
+          fecha?: string
+          id?: never
+          inicio_reparto_at?: string | null
+          monitor_id: string
+          numero_salida?: number
+          observaciones?: string | null
+          repartidor_id?: string | null
+          updated_at?: string
+          vehicle_id?: number | null
+        }
+        Update: {
+          armada_at?: string | null
+          asignada_at?: string | null
+          cerrada_at?: string | null
+          created_at?: string
+          estado?: Database["public"]["Enums"]["delivery_sheet_status"]
+          fecha?: string
+          id?: never
+          inicio_reparto_at?: string | null
+          monitor_id?: string
+          numero_salida?: number
+          observaciones?: string | null
+          repartidor_id?: string | null
+          updated_at?: string
+          vehicle_id?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "delivery_sheets_monitor_id_fkey"
+            columns: ["monitor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "delivery_sheets_repartidor_id_fkey"
+            columns: ["repartidor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "delivery_sheets_vehicle_id_fkey"
+            columns: ["vehicle_id"]
+            isOneToOne: false
+            referencedRelation: "vehicles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      incident_history: {
+        Row: {
+          accion: string
+          area_anterior: Database["public"]["Enums"]["incident_area"] | null
+          area_nueva: Database["public"]["Enums"]["incident_area"] | null
+          created_at: string
+          detalle: string | null
+          estado_anterior: Database["public"]["Enums"]["incident_status"] | null
+          estado_nuevo: Database["public"]["Enums"]["incident_status"] | null
+          id: number
+          incident_id: number
+          realizado_por: string
+        }
+        Insert: {
+          accion: string
+          area_anterior?: Database["public"]["Enums"]["incident_area"] | null
+          area_nueva?: Database["public"]["Enums"]["incident_area"] | null
+          created_at?: string
+          detalle?: string | null
+          estado_anterior?:
+            | Database["public"]["Enums"]["incident_status"]
+            | null
+          estado_nuevo?: Database["public"]["Enums"]["incident_status"] | null
+          id?: number
+          incident_id: number
+          realizado_por: string
+        }
+        Update: {
+          accion?: string
+          area_anterior?: Database["public"]["Enums"]["incident_area"] | null
+          area_nueva?: Database["public"]["Enums"]["incident_area"] | null
+          created_at?: string
+          detalle?: string | null
+          estado_anterior?:
+            | Database["public"]["Enums"]["incident_status"]
+            | null
+          estado_nuevo?: Database["public"]["Enums"]["incident_status"] | null
+          id?: number
+          incident_id?: number
+          realizado_por?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "incident_history_incident_id_fkey"
+            columns: ["incident_id"]
+            isOneToOne: false
+            referencedRelation: "incidents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "incident_history_realizado_por_fkey"
+            columns: ["realizado_por"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      incidents: {
+        Row: {
+          accepted_at: string | null
+          area_origen: Database["public"]["Enums"]["incident_area"]
+          area_responsable: Database["public"]["Enums"]["incident_area"]
+          closed_at: string | null
+          creada_por: string
+          created_at: string
+          delivery_sheet_id: number | null
+          detalle: string
+          estado: Database["public"]["Enums"]["incident_status"]
+          id: number
+          motivo_rechazo: string | null
+          order_id: number | null
+          resolucion: string | null
+          resolved_at: string | null
+          responsable_usuario_id: string | null
+          tipo: string
+          updated_at: string
+        }
+        Insert: {
+          accepted_at?: string | null
+          area_origen: Database["public"]["Enums"]["incident_area"]
+          area_responsable: Database["public"]["Enums"]["incident_area"]
+          closed_at?: string | null
+          creada_por: string
+          created_at?: string
+          delivery_sheet_id?: number | null
+          detalle: string
+          estado?: Database["public"]["Enums"]["incident_status"]
+          id?: number
+          motivo_rechazo?: string | null
+          order_id?: number | null
+          resolucion?: string | null
+          resolved_at?: string | null
+          responsable_usuario_id?: string | null
+          tipo: string
+          updated_at?: string
+        }
+        Update: {
+          accepted_at?: string | null
+          area_origen?: Database["public"]["Enums"]["incident_area"]
+          area_responsable?: Database["public"]["Enums"]["incident_area"]
+          closed_at?: string | null
+          creada_por?: string
+          created_at?: string
+          delivery_sheet_id?: number | null
+          detalle?: string
+          estado?: Database["public"]["Enums"]["incident_status"]
+          id?: number
+          motivo_rechazo?: string | null
+          order_id?: number | null
+          resolucion?: string | null
+          resolved_at?: string | null
+          responsable_usuario_id?: string | null
+          tipo?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "incidents_creada_por_fkey"
+            columns: ["creada_por"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "incidents_delivery_sheet_id_fkey"
+            columns: ["delivery_sheet_id"]
+            isOneToOne: false
+            referencedRelation: "delivery_sheets"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "incidents_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "incidents_responsable_usuario_id_fkey"
+            columns: ["responsable_usuario_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -189,6 +480,7 @@ export type Database = {
           fecha_pedido: string
           id: number
           motivo_rechazo: string | null
+          numero_remito: string | null
           observaciones: string | null
           rechazado_at: string | null
           rechazado_por: string | null
@@ -206,6 +498,7 @@ export type Database = {
           fecha_pedido?: string
           id?: number
           motivo_rechazo?: string | null
+          numero_remito?: string | null
           observaciones?: string | null
           rechazado_at?: string | null
           rechazado_por?: string | null
@@ -223,6 +516,7 @@ export type Database = {
           fecha_pedido?: string
           id?: number
           motivo_rechazo?: string | null
+          numero_remito?: string | null
           observaciones?: string | null
           rechazado_at?: string | null
           rechazado_por?: string | null
@@ -871,6 +1165,33 @@ export type Database = {
           },
         ]
       }
+      vehicles: {
+        Row: {
+          activo: boolean
+          created_at: string
+          descripcion: string | null
+          id: number
+          patente: string
+          updated_at: string
+        }
+        Insert: {
+          activo?: boolean
+          created_at?: string
+          descripcion?: string | null
+          id?: never
+          patente: string
+          updated_at?: string
+        }
+        Update: {
+          activo?: boolean
+          created_at?: string
+          descripcion?: string | null
+          id?: never
+          patente?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       zones: {
         Row: {
           activa: boolean
@@ -903,6 +1224,115 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      accept_delivery_sheet: {
+        Args: { p_delivery_sheet_id: number }
+        Returns: {
+          armada_at: string | null
+          asignada_at: string | null
+          cerrada_at: string | null
+          created_at: string
+          estado: Database["public"]["Enums"]["delivery_sheet_status"]
+          fecha: string
+          id: number
+          inicio_reparto_at: string | null
+          monitor_id: string
+          numero_salida: number
+          observaciones: string | null
+          repartidor_id: string | null
+          updated_at: string
+          vehicle_id: number | null
+        }
+        SetofOptions: {
+          from: "*"
+          to: "delivery_sheets"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      accept_incident: {
+        Args: { p_incident_id: number }
+        Returns: {
+          accepted_at: string | null
+          area_origen: Database["public"]["Enums"]["incident_area"]
+          area_responsable: Database["public"]["Enums"]["incident_area"]
+          closed_at: string | null
+          creada_por: string
+          created_at: string
+          delivery_sheet_id: number | null
+          detalle: string
+          estado: Database["public"]["Enums"]["incident_status"]
+          id: number
+          motivo_rechazo: string | null
+          order_id: number | null
+          resolucion: string | null
+          resolved_at: string | null
+          responsable_usuario_id: string | null
+          tipo: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "incidents"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      add_order_to_delivery_sheet: {
+        Args: {
+          p_delivery_sheet_id: number
+          p_orden_ruta: number
+          p_order_id: number
+        }
+        Returns: {
+          activo: boolean
+          created_at: string
+          delivery_sheet_id: number
+          id: number
+          incident_id: number | null
+          motivo_retiro: string | null
+          numero_remito: string
+          orden_ruta: number
+          order_id: number
+          retirado_at: string | null
+          retirado_por: string | null
+        }
+        SetofOptions: {
+          from: "*"
+          to: "delivery_sheet_orders"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      assign_delivery_sheet: {
+        Args: { p_delivery_sheet_id: number }
+        Returns: {
+          armada_at: string | null
+          asignada_at: string | null
+          cerrada_at: string | null
+          created_at: string
+          estado: Database["public"]["Enums"]["delivery_sheet_status"]
+          fecha: string
+          id: number
+          inicio_reparto_at: string | null
+          monitor_id: string
+          numero_salida: number
+          observaciones: string | null
+          repartidor_id: string | null
+          updated_at: string
+          vehicle_id: number | null
+        }
+        SetofOptions: {
+          from: "*"
+          to: "delivery_sheets"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      can_act_on_incident: { Args: { p_incident_id: number }; Returns: boolean }
+      can_act_on_incident_area: {
+        Args: { p_area: Database["public"]["Enums"]["incident_area"] }
+        Returns: boolean
+      }
       can_view_profile_in_structure: {
         Args: { p_fecha?: string; p_profile_id: string; p_viewer_id: string }
         Returns: boolean
@@ -916,6 +1346,59 @@ export type Database = {
         Returns: number
       }
       client_last_purchase: { Args: { p_client_id: number }; Returns: string }
+      close_delivery_sheet: {
+        Args: { p_delivery_sheet_id: number }
+        Returns: {
+          armada_at: string | null
+          asignada_at: string | null
+          cerrada_at: string | null
+          created_at: string
+          estado: Database["public"]["Enums"]["delivery_sheet_status"]
+          fecha: string
+          id: number
+          inicio_reparto_at: string | null
+          monitor_id: string
+          numero_salida: number
+          observaciones: string | null
+          repartidor_id: string | null
+          updated_at: string
+          vehicle_id: number | null
+        }
+        SetofOptions: {
+          from: "*"
+          to: "delivery_sheets"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      close_incident: {
+        Args: { p_incident_id: number }
+        Returns: {
+          accepted_at: string | null
+          area_origen: Database["public"]["Enums"]["incident_area"]
+          area_responsable: Database["public"]["Enums"]["incident_area"]
+          closed_at: string | null
+          creada_por: string
+          created_at: string
+          delivery_sheet_id: number | null
+          detalle: string
+          estado: Database["public"]["Enums"]["incident_status"]
+          id: number
+          motivo_rechazo: string | null
+          order_id: number | null
+          resolucion: string | null
+          resolved_at: string | null
+          responsable_usuario_id: string | null
+          tipo: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "incidents"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       close_supervisor_route: {
         Args: { p_lat?: number; p_lng?: number; p_workday_id: number }
         Returns: {
@@ -940,6 +1423,69 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      create_incident: {
+        Args: {
+          p_area_origen: Database["public"]["Enums"]["incident_area"]
+          p_area_responsable: Database["public"]["Enums"]["incident_area"]
+          p_delivery_sheet_id?: number
+          p_detalle: string
+          p_order_id?: number
+          p_tipo: string
+        }
+        Returns: {
+          accepted_at: string | null
+          area_origen: Database["public"]["Enums"]["incident_area"]
+          area_responsable: Database["public"]["Enums"]["incident_area"]
+          closed_at: string | null
+          creada_por: string
+          created_at: string
+          delivery_sheet_id: number | null
+          detalle: string
+          estado: Database["public"]["Enums"]["incident_status"]
+          id: number
+          motivo_rechazo: string | null
+          order_id: number | null
+          resolucion: string | null
+          resolved_at: string | null
+          responsable_usuario_id: string | null
+          tipo: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "incidents"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      derive_incident_to_commercial: {
+        Args: { p_detalle: string; p_incident_id: number }
+        Returns: {
+          accepted_at: string | null
+          area_origen: Database["public"]["Enums"]["incident_area"]
+          area_responsable: Database["public"]["Enums"]["incident_area"]
+          closed_at: string | null
+          creada_por: string
+          created_at: string
+          delivery_sheet_id: number | null
+          detalle: string
+          estado: Database["public"]["Enums"]["incident_status"]
+          id: number
+          motivo_rechazo: string | null
+          order_id: number | null
+          resolucion: string | null
+          resolved_at: string | null
+          responsable_usuario_id: string | null
+          tipo: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "incidents"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       effective_assignment: {
         Args: { p_fecha?: string; p_subordinado_id: string }
         Returns: {
@@ -950,6 +1496,31 @@ export type Database = {
           superior_id: string
           tipo: Database["public"]["Enums"]["assignment_type"]
         }[]
+      }
+      finalize_delivery_sheet: {
+        Args: { p_delivery_sheet_id: number }
+        Returns: {
+          armada_at: string | null
+          asignada_at: string | null
+          cerrada_at: string | null
+          created_at: string
+          estado: Database["public"]["Enums"]["delivery_sheet_status"]
+          fecha: string
+          id: number
+          inicio_reparto_at: string | null
+          monitor_id: string
+          numero_salida: number
+          observaciones: string | null
+          repartidor_id: string | null
+          updated_at: string
+          vehicle_id: number | null
+        }
+        SetofOptions: {
+          from: "*"
+          to: "delivery_sheets"
+          isOneToOne: true
+          isSetofReturn: false
+        }
       }
       is_active_user: { Args: never; Returns: boolean }
       is_admin: { Args: never; Returns: boolean }
@@ -968,6 +1539,87 @@ export type Database = {
       is_effective_supervisor_of_seller: {
         Args: { p_fecha?: string; p_seller_id: string; p_supervisor_id: string }
         Returns: boolean
+      }
+      reject_incident: {
+        Args: { p_incident_id: number; p_motivo: string }
+        Returns: {
+          accepted_at: string | null
+          area_origen: Database["public"]["Enums"]["incident_area"]
+          area_responsable: Database["public"]["Enums"]["incident_area"]
+          closed_at: string | null
+          creada_por: string
+          created_at: string
+          delivery_sheet_id: number | null
+          detalle: string
+          estado: Database["public"]["Enums"]["incident_status"]
+          id: number
+          motivo_rechazo: string | null
+          order_id: number | null
+          resolucion: string | null
+          resolved_at: string | null
+          responsable_usuario_id: string | null
+          tipo: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "incidents"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      resolve_incident: {
+        Args: { p_incident_id: number; p_resolucion: string }
+        Returns: {
+          accepted_at: string | null
+          area_origen: Database["public"]["Enums"]["incident_area"]
+          area_responsable: Database["public"]["Enums"]["incident_area"]
+          closed_at: string | null
+          creada_por: string
+          created_at: string
+          delivery_sheet_id: number | null
+          detalle: string
+          estado: Database["public"]["Enums"]["incident_status"]
+          id: number
+          motivo_rechazo: string | null
+          order_id: number | null
+          resolucion: string | null
+          resolved_at: string | null
+          responsable_usuario_id: string | null
+          tipo: string
+          updated_at: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "incidents"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      start_delivery_route: {
+        Args: { p_delivery_sheet_id: number }
+        Returns: {
+          armada_at: string | null
+          asignada_at: string | null
+          cerrada_at: string | null
+          created_at: string
+          estado: Database["public"]["Enums"]["delivery_sheet_status"]
+          fecha: string
+          id: number
+          inicio_reparto_at: string | null
+          monitor_id: string
+          numero_salida: number
+          observaciones: string | null
+          repartidor_id: string | null
+          updated_at: string
+          vehicle_id: number | null
+        }
+        SetofOptions: {
+          from: "*"
+          to: "delivery_sheets"
+          isOneToOne: true
+          isSetofReturn: false
+        }
       }
       start_supervisor_route: {
         Args: { p_lat?: number; p_lng?: number; p_workday_id: number }
@@ -1018,6 +1670,21 @@ export type Database = {
       assignment_type: "PERMANENTE" | "TEMPORAL"
       client_criticality: "PRIORIDAD" | "URGENCIA" | "ACCION" | "SIN_COMPRA"
       client_status: "ACTIVO" | "BAJA"
+      delivery_sheet_status:
+        | "BORRADOR"
+        | "ARMADA"
+        | "ASIGNADA"
+        | "ACEPTADA"
+        | "EN_REPARTO"
+        | "CERRADA"
+        | "CANCELADA"
+      incident_area: "MONITOR" | "COMERCIAL" | "ADMIN" | "DEPOSITO"
+      incident_status:
+        | "PENDIENTE"
+        | "ACEPTADA"
+        | "RECHAZADA"
+        | "RESUELTA"
+        | "CERRADA"
       order_status:
         | "BORRADOR"
         | "ALERTA"
@@ -1182,6 +1849,23 @@ export const Constants = {
       assignment_type: ["PERMANENTE", "TEMPORAL"],
       client_criticality: ["PRIORIDAD", "URGENCIA", "ACCION", "SIN_COMPRA"],
       client_status: ["ACTIVO", "BAJA"],
+      delivery_sheet_status: [
+        "BORRADOR",
+        "ARMADA",
+        "ASIGNADA",
+        "ACEPTADA",
+        "EN_REPARTO",
+        "CERRADA",
+        "CANCELADA",
+      ],
+      incident_area: ["MONITOR", "COMERCIAL", "ADMIN", "DEPOSITO"],
+      incident_status: [
+        "PENDIENTE",
+        "ACEPTADA",
+        "RECHAZADA",
+        "RESUELTA",
+        "CERRADA",
+      ],
       order_status: [
         "BORRADOR",
         "ALERTA",
